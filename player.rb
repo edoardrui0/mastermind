@@ -1,11 +1,7 @@
-require_relative 'board'
-require_relative 'pegs'
-
 class Player
-  attr_accessor :name, :turn
+  attr_accessor :name
 
-  def initialize(name, turn)
+  def initialize(name)
     @name = name
-    @turn = turn
   end
 end
