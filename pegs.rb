@@ -1,5 +1,3 @@
-require_relative 'board'
-
 class Pegs
   GAME_PEGS = {
     red: { color: 'red', key: 1 },
