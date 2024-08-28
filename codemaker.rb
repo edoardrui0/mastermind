@@ -23,3 +23,5 @@ class Codemaker
     code.flatten
   end
 end
+
+# p Codemaker.new.code_maker

@@ -18,3 +18,5 @@ class Codebreaker
     @guess_arr
   end
 end
+
+# p Codebreaker.new(1).guess
