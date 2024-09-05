@@ -8,7 +8,7 @@ class Codemaker
 
   def choose_pegs(key)
     # swapped out color to data[:color] since it would be easier to get the code that way
-    @pegs.game_pegs.filter_map do |color, data|
+    @pegs.game_pegs.filter_map do |_color, data|
       data[:color] if data[:key] == key
     end
   end
