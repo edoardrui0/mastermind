@@ -14,7 +14,7 @@ class Codemaker
   end
 
   def random_num
-    rand(1..4) # up to the amount of colors avaliable
+    rand(1..6) # up to the amount of colors avaliable
   end
 
   def code_maker
