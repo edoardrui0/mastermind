@@ -16,10 +16,9 @@ class Mastermind
   end
 
   def gameplay
-    @@secret_code = @codemaker.code_maker
-    p @@secret_code
+    @secret_code = @codemaker.code_maker
 
-    until @@secret_code == @codebreaker.guess_arr || @@turn == 12
+    until @secret_code == @codebreaker.guess_arr || @@turn == 12
       @board.update_board(@@turn, @codebreaker.guess)
       puts @board.display_board
       puts give_clues
@@ -28,26 +27,36 @@ class Mastermind
   end
 
   def give_clues
-    clues_arr = []
+    @clues_arr = []
+    @secret_code_dup = @secret_code.dup
+    @guess_dup = @codebreaker.guess_arr.dup
 
-    @@secret_code.each_with_index do |secret_color, index|
-      clues_arr.push(Rainbow('~').red) if secret_color == @codebreaker.guess_arr[index]
-      break if clues_arr.length >= 4
+    exact_match
+    wrong_position
+
+    @clues_arr.compact.join(Rainbow(' | ').white)
+  end
+
+  def exact_match
+    @guess_dup.each_with_index do |guess_color, index|
+      next unless guess_color == @secret_code_dup[index]
+
+      @clues_arr.push(Rainbow('~').red)
+      @secret_code_dup[index] = nil # if a match was found, will set the appropiate indices to nil
+      @guess_dup[index] = nil
     end
+  end
 
-    # small bug here
-    # will show that a peg is in the correct index and on the board at the same time
-    # in other words, will show both '~' and 'o' for a single peg if its in the correct index
-    if clues_arr.length < 4
-      matching_elements = @@secret_code & @codebreaker.guess_arr
+  def wrong_position
+    @guess_dup.each do |guess_color|
+      next if guess_color.nil?
 
-      matching_elements.each do
-        clues_arr.push(Rainbow('o').blue)
-        break if clues_arr.length >= 4
-      end
+      next unless @secret_code_dup.include?(guess_color)
+
+      @clues_arr.push(Rainbow('o').blue)
+      @secret_code_dup[@secret_code_dup.index(guess_color)] = nil # Sets the first occurrence of guess_color in @secret
+                                                                  # _code_dup to nil to avoid re-matching. # rubocop:disable Layout/CommentIndentation
     end
-
-    clues_arr.join(Rainbow(' | ').white)
   end
 end
 
