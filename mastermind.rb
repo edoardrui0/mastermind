@@ -3,6 +3,7 @@ require_relative 'board'
 require_relative 'pegs'
 require_relative 'codemaker'
 require_relative 'codebreaker'
+require_relative 'selection'
 
 class Mastermind
   attr_accessor :codebreaker, :codemaker, :pegs
@@ -14,6 +15,16 @@ class Mastermind
     @codebreaker = Codebreaker.new('Player 1')
     @codemaker = Codemaker.new
     @pegs = Pegs.new
+    @selection = Selection.new
+  end
+
+  def test
+    @selection.selected_class?
+    p @selection.made_selection
+    p @selection.codebreaker_class
+    p @selection.codemaker_class
+    p @selection
+    puts @codebreaker.selection_made?(@selection)
   end
 
   def gameplay
@@ -30,7 +41,7 @@ class Mastermind
     @secret_code = @codemaker.code_maker
 
     until @secret_code == @codebreaker.guess_arr || @@turn == 12
-      @board.update_board(@@turn, @codebreaker.guess)
+      @board.update_board(@@turn, @codebreaker.user_guess)
       puts @board.display_board
       puts give_clues
       @@turn += 1
@@ -74,4 +85,4 @@ class Mastermind
 end
 
 new = Mastermind.new
-new.gameplay
+new.test
