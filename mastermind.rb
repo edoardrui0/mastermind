@@ -18,14 +18,14 @@ class Mastermind
     @selection = Selection.new
   end
 
-  def test
-    @selection.selected_class?
-    p @selection.made_selection
-    p @selection.codebreaker_class
-    p @selection.codemaker_class
-    p @selection
-    puts @codebreaker.selection_made?(@selection)
-  end
+  # def test
+  #   @selection.selected_class?
+  #   p @selection.made_selection
+  #   p @selection.codebreaker_class
+  #   p @selection.codemaker_class
+  #   p @selection
+  #   puts @codebreaker.selection_made?(@selection)
+  # end
 
   def gameplay
     puts 'Enter your name'
@@ -85,4 +85,4 @@ class Mastermind
 end
 
 new = Mastermind.new
-new.test
+new.gameplay

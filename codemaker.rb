@@ -1,6 +1,5 @@
 require_relative 'pegs'
 
-# renamed CPU to codemaker
 class Codemaker
   def initialize
     @pegs = Pegs.new

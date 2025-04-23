@@ -14,14 +14,18 @@ class Codebreaker
     @guess_arr = []
     until guess_arr.length == 4
       guesses = gets.chomp.split('').map(&:to_i)
-      guesses.each do |guess_key|
-        peg_data = @pegs.game_pegs.find { |_color, data| data[:key] == guess_key }
-        @guess_arr.push(peg_data[1][:color]) if peg_data
+      if guesses.all? { |x| (1..6).include?(x) }
+        guesses.each do |guess_key|
+          peg_data = @pegs.game_pegs.find { |_color, data| data[:key] == guess_key }
+          @guess_arr.push(peg_data[1][:color]) if peg_data
+        end
+      else
+        puts 'The code must only have digits between 1-6'
       end
 
       if guess_arr.length != 4
         guess_arr.clear
-        puts "Code must only be 4 digits\n\n"
+        puts "The code must have four colors\n"
       end
     end
     @guess_arr
@@ -52,5 +56,5 @@ class Codebreaker
   end
 end
 
-# new = Codebreaker.new(1)
-# puts new.cpu_guess
+new = Codebreaker.new('name')
+puts new.user_guess

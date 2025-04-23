@@ -35,6 +35,3 @@ class Selection
     end
   end
 end
-
-# new = Selection.new
-# new.selected_class?
